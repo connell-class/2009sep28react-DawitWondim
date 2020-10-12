@@ -1,5 +1,6 @@
 package com.revature.eval.java.core;
 
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -525,8 +526,40 @@ public class EvaluationService {
 
 		public int indexOf(T t) 
 		{
-			int listSize = ((ArrayList<String>) t).size();
-			return 0;
+			
+		int last = sortedList.size() - 1;
+		int first = 0;
+		
+		
+		
+		int index = -1;
+		
+		while(first <= last)
+		{
+			int mid = ((first + last)/2);
+			
+			if( t.equals(sortedList.get(mid)))
+			{
+				index = mid;
+				return index;
+			}
+			
+			if(sortedList.indexOf(t) < mid)
+			{
+				last = mid - 1;
+				
+			}
+			
+			
+			if(sortedList.indexOf(t) > mid)
+			{
+				first = mid + 1;
+			}
+				
+		}	
+		
+		
+			return index;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -584,13 +617,10 @@ public class EvaluationService {
 			lastWord += string.substring(indexofLastWord);		
 		}
 		
-		System.out.println(lastWord);
 		
 		for(indexofFirstLetter = 0; indexofFirstLetter < text.length(); indexofFirstLetter++)
 		{
-				System.out.println(text.length());
-				System.out.println(text.charAt(0));
-				System.out.println(finalResult);
+				
 				wentIn = false;
 				nonVowels = "";
 			for(e = 0;  e < text.length() && text.charAt(e) != ' '; e++)
@@ -614,11 +644,7 @@ public class EvaluationService {
 					
 											
 					int i;
-					System.out.println(text);
-					System.out.println(lastWord);
-					System.out.println(lastWord.contentEquals(text));
-					System.out.println(text.length());
-					System.out.println(lastWord.length());
+					
 					
 					if(wentIn == false && lastWord.contentEquals(text) == false)
 					{
@@ -692,7 +718,7 @@ public class EvaluationService {
 				finalResult += word + " ";
 			}
 			
-		System.out.println(word);
+		
 			
 			indexofFirstLetter = -1;
 			word = "";
@@ -1049,6 +1075,13 @@ public class EvaluationService {
 				}
 			}
 			
+			int finalAnswerLength = finalAnswer.length();
+			
+			if(finalAnswer.charAt(finalAnswerLength - 1) == ' ')
+			{
+				finalAnswer = finalAnswer.substring(0, finalAnswerLength - 1);
+			}
+			
 			return finalAnswer;
 		}
 	
@@ -1266,9 +1299,10 @@ public class EvaluationService {
 	 * @param given
 	 * @return
 	 */
-	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public Temporal getGigasecondDate(Temporal given) 
+	{
+		return given.plus(1_000_000_000, ChronoUnit.SECONDS);
+		
 	}
 
 	/**
